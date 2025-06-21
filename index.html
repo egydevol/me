@@ -24,7 +24,9 @@
       position: fixed;
       top: 0;
       left: 0;
-      z-index: -1;
+      width: 100vw;
+      height: 100vh;
+      z-index: -10; /* يخلي الخلفية ورا كل العناصر */
     }
 
     .container {
@@ -32,6 +34,8 @@
       max-width: 800px;
       margin: 0 auto;
       text-align: center;
+      position: relative;
+      z-index: 1;
       animation: fadeIn 2s ease;
     }
 
@@ -139,7 +143,7 @@
   </footer>
 </div>
 
-<!-- Matrix Background JS -->
+<!-- Matrix Chinese Background Script -->
 <script>
   const canvas = document.getElementById('matrix');
   const ctx = canvas.getContext('2d');
@@ -147,7 +151,7 @@
   canvas.height = window.innerHeight;
   canvas.width = window.innerWidth;
 
-  // رموز صينية (كانجي/هانزي)
+  // رموز صينية/كانجي للماتريكس
   let letters = "我爱编程未来黑客技术数字代码计算机开发者系统世界和平信息安全";
   letters = letters.split("");
 
@@ -161,7 +165,7 @@
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "#0f0";
+    ctx.fillStyle = "#0f0"; // اللون الأخضر الماتريكس
     ctx.font = fontSize + "px monospace";
 
     for (let i = 0; i < drops.length; i++) {
@@ -180,6 +184,9 @@
   window.addEventListener('resize', () => {
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = [];
+    for (let x = 0; x < columns; x++) drops[x] = 1;
   });
 </script>
 
