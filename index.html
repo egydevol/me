@@ -4,32 +4,53 @@
   <meta charset="UTF-8">
   <title>Mohamed Ibrahim | egydevol</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mohamed Ibrahim | Developer & Problem Solver - Portfolio">
+  <meta name="author" content="Mohamed Ibrahim">
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Segoe UI', sans-serif;
-      background: #0f0f0f;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
+      background: black;
+      color: #00ffcc;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .container {
+      padding: 60px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      animation: fadeIn 2s ease;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       color: #00f7ff;
+      margin-bottom: 10px;
+      animation: slideIn 1.5s ease;
     }
 
     h2 {
       font-weight: normal;
       color: #ccc;
       margin-bottom: 30px;
+      font-size: 1.3rem;
     }
 
-    .section {
-      max-width: 600px;
-      text-align: center;
+    p {
+      line-height: 1.6;
       margin-bottom: 40px;
     }
 
@@ -37,22 +58,37 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 10px;
+      gap: 15px;
+      margin-bottom: 40px;
     }
 
     .skills span {
-      background: #222;
+      background: rgba(0, 255, 204, 0.1);
+      border: 1px solid #00f7ff;
       padding: 10px 20px;
-      border-radius: 20px;
-      color: #00f7ff;
+      border-radius: 25px;
       font-weight: bold;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .skills span:hover {
+      background: #00f7ff;
+      color: black;
+      transform: scale(1.1);
     }
 
     .contact a {
       display: inline-block;
-      margin: 10px;
+      margin: 10px 15px;
       color: #00f7ff;
       text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .contact a:hover {
+      color: #ffffff;
     }
 
     footer {
@@ -60,30 +96,39 @@
       font-size: 0.9rem;
       color: #555;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(-40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
 
+<canvas id="matrix"></canvas>
+
+<div class="container">
   <h1>Mohamed Ibrahim</h1>
   <h2>@egydevol | Developer & Problem Solver</h2>
 
-  <div class="section">
-    <p>I build websites, tools, and bots using Python, PHP, HTML, CSS, and JavaScript. I enjoy writing clean, efficient code that solves real problems.</p>
+  <p>I build websites, tools, and bots using Python, PHP, HTML, CSS, and JavaScript. I enjoy writing clean, efficient code that solves real problems.</p>
+
+  <h3>💻 My Skills</h3>
+  <div class="skills">
+    <span>Python</span>
+    <span>PHP</span>
+    <span>HTML</span>
+    <span>CSS</span>
+    <span>JavaScript</span>
   </div>
 
-  <div class="section">
-    <h3>💻 My Skills</h3>
-    <div class="skills">
-      <span>Python</span>
-      <span>PHP</span>
-      <span>HTML</span>
-      <span>CSS</span>
-      <span>JavaScript</span>
-    </div>
-  </div>
-
-  <div class="section contact">
-    <h3>📬 Contact Me</h3>
+  <h3>📬 Contact Me</h3>
+  <div class="contact">
     <a href="mailto:ddjr3483@gmail.com">📧 Email</a>
     <a href="https://t.me/uxvsa" target="_blank">💬 Telegram</a>
     <a href="https://github.com/egydevol" target="_blank">🐙 GitHub</a>
@@ -92,6 +137,51 @@
   <footer>
     &copy; 2025 Mohamed Ibrahim | egydevol
   </footer>
+</div>
+
+<!-- Matrix Background JS -->
+<script>
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+
+  // رموز صينية (كانجي/هانزي)
+  let letters = "我爱编程未来黑客技术数字代码计算机开发者系统世界和平信息安全";
+  letters = letters.split("");
+
+  let fontSize = 16;
+  let columns = Math.floor(canvas.width / fontSize);
+  let drops = [];
+
+  for (let x = 0; x < columns; x++) drops[x] = 1;
+
+  function draw() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#0f0";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+      let text = letters[Math.floor(Math.random() * letters.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+        drops[i] = 0;
+
+      drops[i]++;
+    }
+  }
+
+  setInterval(draw, 40);
+
+  window.addEventListener('resize', () => {
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+  });
+</script>
 
 </body>
 </html>
